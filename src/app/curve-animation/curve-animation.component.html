@@ -1,11 +1,63 @@
-<div style="display: inline-block">
+<div style="display: flex">
   <div #c class="lang-b">
     <span>{{ source }}</span>
   </div>
-  <div style="display: inline-block; padding: 4px">
-    <span>↔</span>
+  <div style="display: flex; padding: 5px; align-items: center">
+    <i
+      class="fas fa-exchange-alt"
+      style="font-size: 12px; font-weight: 500"
+    ></i>
   </div>
-  <div class="lang-b">
+  <div #e class="lang-b">
     <span>{{ target }}</span>
   </div>
+</div>
+
+<br />
+<br />
+<br />
+<div style="height: 200px; width: 200px; display: none">
+  <div class="dot"></div>
+</div>
+
+<style>
+  .dot {
+    /* Some layout code… */
+    animation: xAxis 2.5s normal cubic-bezier(1, 1, 0, 0);
+  }
+
+  .dot::after {
+    background-color: black;
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin-top: 50px;
+    border-radius: 20px;
+    animation: yAxis 2.5s normal cubic-bezier(0.3, 0.69, 0.6, 0.95);
+  }
+
+  @keyframes xAxis {
+    50% {
+      transform: translateX(50px);
+    }
+    100% {
+      transform: translateX(100px);
+    }
+  }
+
+  @keyframes yAxis {
+    50% {
+      /* animation-timing-function: cubic-bezier(0.3, 0.7, 0, 0);*/
+      transform: translateY(-50px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+</style>
+
+<div style="display: none">
+  <span>source: {{ source }}</span>
+  <span>target: {{ target }}</span>
 </div>

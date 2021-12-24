@@ -27,6 +27,7 @@ export class CurveAnimationComponent implements OnInit {
   @Input() public source: string = 'EN';
 
   @ViewChild('c') el?: ElementRef;
+  @ViewChild('e') el2?: ElementRef;
 
   constructor(
     private builder: AnimationBuilder,
@@ -34,7 +35,8 @@ export class CurveAnimationComponent implements OnInit {
   ) {}
 
   @HostListener('click') onClick() {
-    this.start();
+    this.start(this.el!, 0, false);
+    this.start(this.el2!, 0, true);
     console.log('cl');
   }
 
@@ -47,29 +49,37 @@ export class CurveAnimationComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  start() {
-    const stepsNumber = Math.trunc(this.width / 2);
+  start(el: ElementRef, rDiff: number, fl: boolean) {
+    const r = this.width / 2;
+    const stepsNumber = 180;
     const steps = Array(stepsNumber)
       .fill(null)
       .map((e, i) => {
-        const y = i;
-        const x = i;
-
+        const degree = i - rDiff;
+        let x = r - r * Math.cos((degree * Math.PI) / 180);
+        let y = r * Math.sin((degree * Math.PI) / 180);
+        if (fl) {
+          x = x * -1;
+        }
+        if (!fl) {
+          y = y * -1;
+        }
         const transform = style({
-          transform: `translate(${x}px, -${y}px)`,
+          transform: `translate(${x}px, ${y}px)`,
         });
-
         return transform;
       });
 
     console.log(steps);
 
     const animationPlayer = this.builder
-      .build(animate(`700ms ${easing.standard}`, keyframes(steps)))
-      .create(this.el!.nativeElement);
+      .build(animate(`300ms ${easing.standard}`, keyframes(steps)))
+      .create(el!.nativeElement);
     animationPlayer.play();
     animationPlayer.onDone(() => {
-      this._animationEnd();
+      if (el == this.el) {
+        this._animationEnd();
+      }
       animationPlayer.destroy();
     });
   }
