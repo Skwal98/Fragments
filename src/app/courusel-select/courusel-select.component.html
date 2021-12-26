@@ -1,0 +1,31 @@
+<div
+  class="wrapper"
+  style="transition: all 0.2s ease 0s"
+  [style.transform]="translateStyle"
+>
+  <span
+    #item
+    class="item-content"
+    *ngFor="let item of items; let isFirst = first; let isLast = last"
+  >
+    <span *ngIf="!isFirst; else dot" (click)="back()">
+      <i
+        class="fas fa-arrow-left"
+        style="cursor: pointer; width: 14px; display: inline-block"
+      ></i>
+    </span>
+    <span style="display: inline-block; text-align: center">
+      &nbsp;{{ item }}&nbsp;
+    </span>
+    <span *ngIf="!isLast; else dot" (click)="next()">
+      <i
+        class="fas fa-arrow-right"
+        style="cursor: pointer; width: 14px; display: inline-block"
+      ></i>
+    </span>
+  </span>
+</div>
+
+<ng-template #dot>
+  <span style="width: 14px; display: inline-block; text-align: center">•</span>
+</ng-template>

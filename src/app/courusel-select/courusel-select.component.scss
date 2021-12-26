@@ -1,0 +1,13 @@
+:host {
+  font-family: "Montserrat", sans-serif;
+  user-select: none;
+
+  overflow: hidden;
+  display: block;
+  word-break: break-all;
+  white-space: nowrap;
+}
+
+.item-content {
+  margin: 0 5px;
+}
