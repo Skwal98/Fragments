@@ -16,3 +16,14 @@
   user-select: none;
   font-family: "Montserrat", sans-serif;
 }
+
+.icon-container {
+  display: flex;
+  padding: 5px;
+  align-items: center;
+
+  & i {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
